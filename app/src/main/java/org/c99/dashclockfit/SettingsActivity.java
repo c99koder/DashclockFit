@@ -125,6 +125,7 @@ public class SettingsActivity extends PreferenceActivity implements AppCompatCal
 
     @Override
     public void onConnected(Bundle bundle) {
+        sendBroadcast(new Intent(FitExtension.REFRESH_INTENT));
     }
 
     @Override

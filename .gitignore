@@ -18,7 +18,7 @@ build/
 
 # Local configuration file (sdk path, etc)
 *.properties
-irccloud.keystore
+keystore.jks
 *-res/
 build-*.*
 branded.gradle
@@ -30,3 +30,4 @@ branded.gradle
 res/values/com_crashlytics_export_strings.xml
 assets/crashlytics-build.properties
 infer-out/
+.DS_Store

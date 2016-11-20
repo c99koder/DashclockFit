@@ -1,6 +1,9 @@
 package org.c99.dashclockfit;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -32,10 +35,30 @@ import java.util.concurrent.TimeUnit;
 public class FitExtension extends DashClockExtension implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = "FitExtension";
     private GoogleApiClient mClient = null;
+    public final static String REFRESH_INTENT = "org.c99.dashclockfit.REFRESH";
+    RefreshReceiver receiver;
+
+    class RefreshReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onUpdateData(0);
+        }
+    }
 
     @Override
     protected void onInitialize(boolean isReconnect) {
         super.onInitialize(isReconnect);
+        if (receiver != null) {
+            try {
+                unregisterReceiver(receiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        IntentFilter intentFilter = new IntentFilter(REFRESH_INTENT);
+        receiver = new RefreshReceiver();
+        registerReceiver(receiver, intentFilter);
 
         buildGoogleClient();
         mClient.connect();
@@ -46,6 +69,14 @@ public class FitExtension extends DashClockExtension implements GoogleApiClient.
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        if (receiver != null) {
+            try {
+                unregisterReceiver(receiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         if(mClient != null && mClient.isConnected()) {
             mClient.disconnect();
