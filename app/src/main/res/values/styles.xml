@@ -1,0 +1,14 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowTitleSize">?attr/actionBarSize</item>
+        <item name="android:windowTitleBackgroundStyle">@style/PrefsWindowTitleBackground</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="PrefsWindowTitleBackground">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">0px</item>
+    </style>
+</resources>
