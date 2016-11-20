@@ -38,6 +38,7 @@ public class FitExtension extends DashClockExtension implements GoogleApiClient.
         super.onInitialize(isReconnect);
 
         buildGoogleClient();
+        mClient.connect();
 
         setUpdateWhenScreenOn(true);
     }
@@ -146,7 +147,6 @@ public class FitExtension extends DashClockExtension implements GoogleApiClient.
                 }
             });
         } else {
-            Log.d(TAG, "API client not connected");
             mClient.connect();
         }
     }

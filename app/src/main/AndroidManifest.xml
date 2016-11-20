@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.c99.dashclockfit">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +28,8 @@
             <meta-data
                 android:name="description"
                 android:value="@string/description" />
+            <meta-data android:name="settingsActivity"
+                android:value=".SettingsActivity" />
         </service>
 
         <activity
