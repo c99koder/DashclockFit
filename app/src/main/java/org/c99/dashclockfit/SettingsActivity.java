@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -33,6 +34,7 @@ public class SettingsActivity extends PreferenceActivity implements AppCompatCal
     private GoogleApiClient mClient = null;
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private boolean mResolvingError = false;
+    private boolean mClickedLogin = false;
     private AppCompatDelegate appCompatDelegate;
 
     private AppCompatDelegate getDelegate() {
@@ -90,6 +92,7 @@ public class SettingsActivity extends PreferenceActivity implements AppCompatCal
         @Override
         public boolean onPreferenceClick(Preference preference) {
             mResolvingError = false;
+            mClickedLogin = true;
             if(mClient.isConnected())
                 mClient.clearDefaultAccountAndReconnect();
             else
@@ -126,6 +129,10 @@ public class SettingsActivity extends PreferenceActivity implements AppCompatCal
     @Override
     public void onConnected(Bundle bundle) {
         sendBroadcast(new Intent(FitExtension.REFRESH_INTENT));
+        if(mClickedLogin) {
+            Toast.makeText(this, "Successfully logged into Google", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
